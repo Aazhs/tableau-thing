@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spotify Data Analysis</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Montserrat',sans-serif;
+    overflow:hidden;
+    background:#000;
+}
+
+/* MAIN SLIDE */
+
+.slide{
+    width:100%;
+    height:100vh;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+    linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.9)),
+    url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=2070&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+}
+
+/* ANIMATED GLOW */
+
+.glow{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(100px);
+    animation:float 8s ease-in-out infinite;
+}
+
+.glow1{
+    width:350px;
+    height:350px;
+    background:#1DB954;
+    top:-120px;
+    left:-80px;
+}
+
+.glow2{
+    width:280px;
+    height:280px;
+    background:#1ed760;
+    bottom:-80px;
+    right:-50px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-25px);}
+    100%{transform:translateY(0px);}
+}
+
+/* SPOTIFY ICON */
+
+.spotify-icon{
+    position:absolute;
+    top:35px;
+    left:50px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    z-index:5;
+}
+
+.spotify-logo{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#1DB954;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 30px rgba(29,185,84,0.8);
+}
+
+.spotify-logo img{
+    width:38px;
+}
+
+.spotify-text{
+    color:white;
+    font-size:28px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+/* CARD */
+
+.main-card{
+    width:88%;
+    max-width:1300px;
+    height:78vh;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(20px);
+    border-radius:35px;
+    overflow:hidden;
+    display:flex;
+    position:relative;
+    box-shadow:0 0 50px rgba(0,0,0,0.7);
+    animation:appear 1.2s ease;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:scale(0.95);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* LEFT */
+
+.left{
+    width:58%;
+    padding:70px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+    z-index:2;
+}
+
+.tag{
+    width:max-content;
+    padding:10px 20px;
+    border-radius:50px;
+    background:rgba(29,185,84,0.18);
+    color:#1DB954;
+    font-weight:700;
+    margin-bottom:25px;
+    border:1px solid rgba(29,185,84,0.4);
+    font-size:15px;
+}
+
+.title{
+    font-size:68px;
+    font-weight:900;
+    line-height:1.05;
+    color:white;
+    margin-bottom:25px;
+}
+
+.title span{
+    color:#1DB954;
+    text-shadow:0 0 18px rgba(29,185,84,0.6);
+}
+
+.caption{
+    font-size:24px;
+    color:#dcdcdc;
+    margin-bottom:35px;
+    line-height:1.5;
+}
+
+.goal{
+    background:rgba(0,0,0,0.35);
+    border-left:6px solid #1DB954;
+    padding:25px;
+    border-radius:18px;
+    margin-bottom:40px;
+}
+
+.goal h3{
+    color:#1DB954;
+    margin-bottom:12px;
+    font-size:24px;
+}
+
+.goal p{
+    color:#ededed;
+    font-size:18px;
+    line-height:1.7;
+}
+
+/* TEAM */
+
+.team{
+    display:flex;
+    gap:20px;
+}
+
+.member{
+    flex:1;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:22px;
+    border-radius:20px;
+    transition:0.4s;
+}
+
+.member:hover{
+    transform:translateY(-10px);
+    background:rgba(29,185,84,0.15);
+    box-shadow:0 0 25px rgba(29,185,84,0.25);
+}
+
+.member h4{
+    color:white;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.member p{
+    color:#bdbdbd;
+    font-size:14px;
+}
+
+/* RIGHT */
+
+.right{
+    width:42%;
+    position:relative;
+    overflow:hidden;
+}
+
+.music-image{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(0.9);
+}
+
+/* FLOATING MUSIC CARDS */
+
+.floating-card{
+    position:absolute;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:18px;
+    border-radius:18px;
+    color:white;
+    animation:floatCard 4s ease-in-out infinite;
+}
+
+.card1{
+    top:90px;
+    left:-40px;
+}
+
+.card2{
+    bottom:90px;
+    right:40px;
+    animation-delay:2s;
+}
+
+@keyframes floatCard{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-15px);}
+    100%{transform:translateY(0px);}
+}
+
+.floating-card h3{
+    color:#1DB954;
+    margin-bottom:8px;
+    font-size:20px;
+}
+
+.floating-card p{
+    font-size:14px;
+    color:#ddd;
+    line-height:1.5;
+}
+
+/* MUSIC BARS */
+
+.bars{
+    position:absolute;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:8px;
+}
+
+.bar{
+    width:8px;
+    background:#1DB954;
+    border-radius:10px;
+    animation:music 1s infinite ease-in-out;
+}
+
+.bar:nth-child(1){height:20px;}
+.bar:nth-child(2){height:45px; animation-delay:0.2s;}
+.bar:nth-child(3){height:70px; animation-delay:0.4s;}
+.bar:nth-child(4){height:35px; animation-delay:0.6s;}
+.bar:nth-child(5){height:55px; animation-delay:0.8s;}
+
+@keyframes music{
+    0%{transform:scaleY(0.5);}
+    50%{transform:scaleY(1.2);}
+    100%{transform:scaleY(0.5);}
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+    .main-card{
+        flex-direction:column;
+        height:auto;
+    }
+
+    .left,.right{
+        width:100%;
+    }
+
+    .title{
+        font-size:48px;
+    }
+
+    .team{
+        flex-direction:column;
+    }
+
+    .right{
+        height:350px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="slide">
+
+    <div class="glow glow1"></div>
+    <div class="glow glow2"></div>
+
+    <!-- Spotify Heading -->
+    <div class="spotify-icon">
+        <div class="spotify-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg">
+        </div>
+        <div class="spotify-text">Spotify Analytics</div>
+    </div>
+
+    <!-- Main Card -->
+    <div class="main-card">
+
+        <!-- LEFT CONTENT -->
+        <div class="left">
+
+            <div class="tag">
+                DATA SCIENCE PROJECT
+            </div>
+
+            <div class="title">
+                Spotify <span>Data Analysis</span>
+            </div>
+
+            <div class="caption">
+                “Decoding the DNA of a Global Hit”
+            </div>
+
+            <div class="goal">
+                <h3>Project Goal</h3>
+
+                <p>
+                    Analyze over <b>100,000+ songs</b> to discover
+                    what makes music popular, energetic,
+                    emotionally engaging, and globally successful
+                    using real Spotify audio features and streaming data.
+                </p>
+            </div>
+
+            <!-- TEAM -->
+            <div class="team">
+
+                <div class="member">
+                    <h4>Aarsh Joshi</h4>
+                    <p>PRN: 202501040435</p>
+                </div>
+
+                <div class="member">
+                    <h4>Homesh Ingle</h4>
+                    <p>PRN: 202501040461</p>
+                </div>
+
+                <div class="member">
+                    <h4>Tejas Bhadait</h4>
+                    <p>PRN: 202501040439</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="right">
+
+            <img class="music-image"
+            src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1974&auto=format&fit=crop">
+
+            <div class="floating-card card1">
+                <h3>100K+ Tracks</h3>
+                <p>Massive dataset analysis using Spotify audio features.</p>
+            </div>
+
+            <!-- Replace ONLY this floating card section -->
+
+            <div class="floating-card card2">
+                <h3>Data Visualization</h3>
+                <p>
+                  Interactive Tableau dashboards used to visualize
+                  trends, popularity patterns, and Spotify music insights.
+                </p>
+            </div>
+            <!-- Animated Music Bars -->
+            <div class="bars">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
